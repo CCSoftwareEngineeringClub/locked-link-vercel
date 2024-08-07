@@ -4,15 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { encodeData } from "@/lib/serialization";
+import { hash } from "@/lib/utils";
 import { useState } from "react";
 
 export default function Home() {
   const [link, setLink] = useState<string>();
-  function onLinkCreate(event: React.FormEvent<HTMLFormElement>) {
+  async function onLinkCreate(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     event.stopPropagation()
     const data = event.target as unknown as { url: { value: string }; password: { value: string } };
-    setLink('/' + encodeData(JSON.stringify({ url: data.url.value, password: data.password.value })));
+    setLink('/' + encodeData(JSON.stringify({ url: data.url.value, password: await hash(data.password.value) })));
   }
   return (
     <div className="w-full min-h-screen flex items-center justify-center gap-3 flex-col">

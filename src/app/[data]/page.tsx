@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { decodeData } from "@/lib/serialization";
+import { hash } from "@/lib/utils";
 import Image from "next/image";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -19,8 +20,9 @@ export default function LinkPage({ params }: { params: { data: string } }) {
     }
   }, [isIncorrect]);
 
-  function onGo() {
-    if (password !== data.password) {
+  async function onGo() {
+    if (!password) return;
+    if (await hash(password) !== data.password) {
       setIsIncorrect(true);
       return;
     }
