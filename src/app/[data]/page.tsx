@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 
 export default function LinkPage({ params }: { params: { data: string } }) {
   const data = JSON.parse(decodeData(params.data));
-  console.log(data);
   const router = useRouter();
   const [password, setPassword] = useState<string>();
   const [isIncorrect, setIsIncorrect] = useState(false);
@@ -37,6 +36,7 @@ export default function LinkPage({ params }: { params: { data: string } }) {
         }
       }}
     >
+      <Image src="/ccse.svg" width={200} height={200} className="fixed top-5 right-5 w-[60px] opacity-50" alt="logo" />
       <Image src="/icon.svg" width={200} height={200} className="w-[60px] mb-5" alt="logo" />
       <p>This link is locked! Enter a password to proceed.</p>
       <div className="flex gap-2 mt-5">
